@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 /**
  * Created by Kelvin on 4/16/16.
  */
-public class HallHour {
+public class DiningHallTime {
 
     private static Pattern p;
 
@@ -61,7 +61,7 @@ public class HallHour {
 
     /**
      * Extracts the string hour data from the whole description
-     * this HallHour was created with.
+     * this DiningHallTime was created with.
      * @return String
      */
     private String extractHoursFromDescription() {
@@ -77,7 +77,7 @@ public class HallHour {
         return hours;
     }
 
-    public HallHour(String hoursDescription) {
+    public DiningHallTime(String hoursDescription) {
 
         if (p == null) {
             p = Pattern.compile(pattern);
@@ -90,7 +90,7 @@ public class HallHour {
     }
 
     /**
-     * Get full string description this HallHour was created with.
+     * Get full string description this DiningHallTime was created with.
      * @return String
      */
     public String getDescription() {
@@ -98,7 +98,7 @@ public class HallHour {
     }
 
     /**
-     * Get the opening and closing time assoiated with this HallHour.
+     * Get the opening and closing time assoiated with this DiningHallTime.
      * @return int[2][3],
      *      int[0][x]: opening hour data.
      *      int[1][x]: closing hour data.

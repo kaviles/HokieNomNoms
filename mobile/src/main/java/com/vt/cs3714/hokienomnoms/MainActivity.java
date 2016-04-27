@@ -1,39 +1,50 @@
 package com.vt.cs3714.hokienomnoms;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.LinkedList;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private Utils utils;
-    private Calendar calendar;
+    public final static String HALL_NAME = "HALL_NAME";
+    public final static String DATE_TEXT = "DATE_TEXT";
+    public final static String LOC_NAME = "LOC_NAME";
+    public final static String LOC_NUM = "LOC_NUM";
+    public final static String MONTH = "MONTH";
+    public final static String DAY = "DAY";
+    public final static String YEAR = "YEAR";
+    public final static String MENU_NAMES = "MENU_NAMES";
+
+    private TextView tv_date;
     private LinearLayout ll;
 
-    private HallManager hm;
+    private Calendar calendar;
+
+    private DiningHallManager dhm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-
-        utils = new Utils();
         calendar = Calendar.getInstance();
 
+        tv_date = (TextView) findViewById(R.id.date);
         ll  = (LinearLayout) findViewById(R.id.linearLayout);
-        hm = new HallManager(this);
+
+        dhm = new DiningHallManager(this);
 
         try {
             findViewById(R.id.btn_prevDay).setOnClickListener(this);
@@ -73,7 +84,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void prepareData() {
-        hm.gatherHallHoursData(
+        dhm.gatherHallHoursData(
                 calendar.get(Calendar.MONTH),
                 calendar.get(Calendar.DAY_OF_MONTH),
                 calendar.get(Calendar.YEAR),
@@ -97,26 +108,73 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    public void updateUI(LinkedList<HallData> hallDataList) {
+    private View.OnClickListener btn_hallClickListener = new View.OnClickListener() {
+
+        @Override
+        public void onClick(final View v) {
+
+            int tag = (int) v.getTag();
+
+            DiningHall diningHall = dhm.getCurrDiningHallsList().get(tag);
+
+            if (diningHall.hasValidMenu()) {
+                Intent intent = new Intent(MainActivity.this, MenuActivity.class);
+                intent.putExtra(HALL_NAME, diningHall.getHumanName());
+                intent.putExtra(DATE_TEXT, tv_date.getText());
+                intent.putExtra(LOC_NAME, diningHall.getLocationName());
+                intent.putExtra(LOC_NUM, diningHall.getLocationNum());
+                intent.putExtra(MONTH, diningHall.getMonth());
+                intent.putExtra(DAY, diningHall.getDay());
+                intent.putExtra(YEAR, diningHall.getYear());
+                intent.putExtra(MENU_NAMES, diningHall.getMenuNamesArrayList());
+
+                startActivity(intent);
+            }
+            else {
+                Toast toast = Toast.makeText(MainActivity.this, "DEFAULT", Toast.LENGTH_LONG);
+
+                TextView tv = (TextView) toast.getView().findViewById(android.R.id.message);
+                if( tv != null) {
+                    tv.setText("No menu data for\n" + diningHall.getHumanName());
+                    tv.setGravity(Gravity.CENTER);
+                }
+
+                toast.show();
+            }
+        }
+    };
+
+    public void updateUI(ArrayList<DiningHall> diningHallArrayList) {
 
         ll.removeAllViews();
 
         SimpleDateFormat sdf = new SimpleDateFormat("E, MMMM d y");
 
-        TextView tv_date = (TextView) findViewById(R.id.date);
         tv_date.setText(sdf.format(calendar.getTime()));
 
-        TextView tv;
-        for (HallData data : hallDataList) {
-            tv = new TextView(this);
-            tv.setText(data.getName());
-            ll.addView(tv);
+        for (int i = 0; i < diningHallArrayList.size(); i++){
+            DiningHall diningHall = diningHallArrayList.get(i);
 
-            for (HallHour time : data.getHallHours()) {
+            LinearLayout hallDataLayout = new LinearLayout(this);
+            hallDataLayout.setOrientation(LinearLayout.VERTICAL);
+            hallDataLayout.setOnClickListener(btn_hallClickListener);
+            hallDataLayout.setTag(i);
+
+            TextView tv = new TextView(this);
+            tv.setText(diningHall.getHumanName());
+            hallDataLayout.addView(tv);
+
+            for (DiningHallTime time : diningHall.getDiningHallTimes()) {
                 tv = new TextView(this);
                 tv.setText(time.getDescription());
-                ll.addView(tv);
+                hallDataLayout.addView(tv);
             }
+
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            layoutParams.setMargins(0, 10, 0, 10);
+
+            ll.addView(hallDataLayout, layoutParams);
         }
     }
 }
