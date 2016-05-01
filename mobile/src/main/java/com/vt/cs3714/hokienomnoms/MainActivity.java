@@ -1,6 +1,7 @@
 package com.vt.cs3714.hokienomnoms;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,7 +9,12 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +39,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Calendar calendar;
 
     private DiningHallManager dhm;
+
+    private Button abpGLC, abpSQC, abpSQK, abpGDWN, burger37, d2, deets, dunkin, dx, hokieGrill,
+            owens, turnerFireGrill, turnerPizza, turnerBagel, turnerDolci, turnerJamba,
+            turnerOrigamiGrill, turnerOrigamiSushi, turnerQdoba, turnerSoup, vetMedCafe, westEnd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -156,24 +166,68 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             DiningHall diningHall = diningHallArrayList.get(i);
 
             LinearLayout hallDataLayout = new LinearLayout(this);
-            hallDataLayout.setOrientation(LinearLayout.VERTICAL);
+            hallDataLayout.setOrientation(LinearLayout.HORIZONTAL);
             hallDataLayout.setOnClickListener(btn_hallClickListener);
             hallDataLayout.setTag(i);
 
+            LinearLayout nameAndHours = new LinearLayout(this);
+            nameAndHours.setOrientation(LinearLayout.VERTICAL);
+
             TextView tv = new TextView(this);
             tv.setText(diningHall.getHumanName());
-            hallDataLayout.addView(tv);
+            tv.setTypeface(null, Typeface.BOLD);
+            nameAndHours.addView(tv);
 
             for (DiningHallTime time : diningHall.getDiningHallTimes()) {
                 tv = new TextView(this);
                 tv.setText(time.getDescription());
-                hallDataLayout.addView(tv);
+                tv.setTypeface(null, Typeface.ITALIC);
+                nameAndHours.addView(tv);
             }
 
+            FrameLayout statusIcon = new FrameLayout(this);
+            ImageView iv = new ImageView(this);
+
+            HallStatus status = diningHall.getStatus();
+            if(status != null)
+            {
+                switch (status)
+                {
+                    case OPEN:
+                        iv.setImageResource(R.drawable.greenlight);
+                        break;
+                    case CLOSED:
+                        iv.setImageResource(R.drawable.redlight);
+                        break;
+                    case CLOSINGSOON:
+                        iv.setImageResource(R.drawable.yellowlight);
+                        break;
+                }
+            }
+
+            statusIcon.addView(iv);
+
+            //Set layout params for FrameLayout containing imageview to 100x100 and add the
+            // FrameLayout to the hallDataLayout (horizontal linear layout)
+            FrameLayout.LayoutParams statusLayoutParams =
+                    new FrameLayout.LayoutParams(100, 100);
+            statusLayoutParams.gravity = Gravity.CENTER_VERTICAL; //this is not working for some reason...
+            hallDataLayout.addView(statusIcon, statusLayoutParams);
+
+            //Set layout params for the nameAndHours vertical linear layout to match x wrap,
+            // set the start margin (left margin) to 20 ,and add the layout to the
+            // hallDataLayout (horizontal linear layout)
+            LinearLayout.LayoutParams infoLayoutParams = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            infoLayoutParams.setMarginStart(20);
+            hallDataLayout.addView(nameAndHours, infoLayoutParams);
+
+            //Set layout params for the hallDataLayout horizontal linear layout to match x wrap,
+            // set margins to left=0, top=20, right=0, bottom=20, and add the layout to the
+            // main vertical linear layout containing all current dining halls/hours
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            layoutParams.setMargins(0, 10, 0, 10);
-
+            layoutParams.setMargins(0, 20, 0, 20);
             ll.addView(hallDataLayout, layoutParams);
         }
     }

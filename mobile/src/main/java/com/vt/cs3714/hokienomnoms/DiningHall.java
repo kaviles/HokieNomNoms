@@ -20,6 +20,8 @@ public class DiningHall {
 
     private ArrayList<DiningHallTime> diningHallTimes;
 
+    private HallStatus status;
+
     public DiningHall() {
         menuNames = new ArrayList<>();
         diningHallTimes = new ArrayList<>();
@@ -95,5 +97,15 @@ public class DiningHall {
 
     public ArrayList<DiningHallTime> getDiningHallTimes() {
         return diningHallTimes;
+    }
+
+    public void setStatus(HallStatus status)
+    {
+        this.status = status;
+    }
+
+    public HallStatus getStatus()
+    {
+        return status;
     }
 }
