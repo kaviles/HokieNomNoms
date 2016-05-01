@@ -1,0 +1,259 @@
+{
+  "menusParams":{
+    "sName":"Virginia+Tech+Dining+Services",
+    "naFlag":1,
+    "WeeksMenus":"This+Week%27s+Menus",
+    "mealName":"Lunch+%26+Dinner"
+  },
+  "hallsList":["Au Bon Pain - GLC", "Au Bon Pain - Squires Cafe", "Au Bon Pain - Squires Kiosk",
+    "Au Bon Pain at Goodwin Hall", "Burger '37", "D2", "Deet's Place", "Dunkin Donuts", "DXpress",
+    "Hokie Grill & Co.", "Owens Food Court", "Turner Place - 1872 Fire Grill", "Turner Place - Atomic Pizzeria",
+    "Turner Place - Bruegger's Bagels", "Turner Place - Dolci e Caffe", "Turner Place - Jamba Juice",
+    "Turner Place - Origami Grill", "Turner Place - Origami Sushi", "Turner Place - Qdoba Mexican Grill",
+    "Turner Place - Soup Garden", "Vet Med Cafe", "West End Market"],
+  "halls":{
+    "Au Bon Pain - GLC":{
+      "validMenu":false,
+      "locationNum":"01",
+      "locationName":"AU+BON+PAIN+AT+SQUIRES%2c+GLC+%26+GOODWIN+HALL",
+      "mealNames":[],
+      "shops":{}
+    },
+    "Au Bon Pain - Squires Cafe":{
+      "validMenu":false,
+      "locationNum":"01",
+      "locationName":"AU+BON+PAIN+AT+SQUIRES%2c+GLC+%26+GOODWIN+HALL",
+      "mealNames":[],
+      "shops":{}
+    },
+    "Au Bon Pain - Squires Kiosk":{
+      "validMenu":false,
+      "locationNum":"01",
+      "locationName":"AU+BON+PAIN+AT+SQUIRES%2c+GLC+%26+GOODWIN+HALL",
+      "mealNames":[],
+      "shops":{}
+    },
+    "Au Bon Pain at Goodwin Hall":{
+      "validMenu":false,
+      "locationNum":"01",
+      "locationName":"AU+BON+PAIN+AT+SQUIRES%2c+GLC+%26+GOODWIN+HALL",
+      "mealNames":[],
+      "shops":{}
+    },
+    "Burger '37":{
+      "validMenu":true,
+      "locationNum":"18",
+      "locationName":"BURGER+%2737+AT+SQUIRES",
+      "mealNames":["Daily+Items"],
+      "shops":{}
+    },
+    "D2":{
+      "validMenu":true,
+      "locationNum":"15",
+      "locationName":"D2+AT+DIETRICK+HALL",
+      "mealNames":["Breakfast", "Lunch", "Dinner"],
+      "shops":{}
+    },
+    "Deet's Place":{
+      "validMenu":true,
+      "locationNum":"07",
+      "locationName":"DEET%27S+PLACE",
+      "mealNames":["Daily+Items"],
+      "shops":{}
+    },
+    "Dunkin Donuts":{
+      "validMenu":false,
+      "shops":{}
+    },
+    "DXpress":{
+      "validMenu":true,
+      "locationNum":"13",
+      "locationName":"DXPRESS+AT+DIETRICK+HALL",
+      "mealNames":["Breakfast", "Lunch+%26+Dinner"],
+      "shops":{}
+    },
+    "Hokie Grill & Co.":{
+      "validMenu":true,
+      "locationNum":"09",
+      "locationName":"OWENS+%26+HOKIE+GRILL",
+      "mealNames":["Daily+Items"],
+      "shops":{
+        "Chick-fil-A":{
+          "subShops":["chickfila"]
+        },
+        "Blue Ridge BBQ":{
+          "subShops":["blueridgebbq"]
+        },
+        "Pizza hut":{
+          "subShops":["pizzahut"]
+        },
+        "Hokie Grill Grab-n-Go Items":{
+          "subShops":["hokiegrillgrabngoitems"]
+        }
+      }
+    },
+    "Owens Food Court":{
+      "validMenu":true,
+      "locationNum":"09",
+      "locationName":"OWENS+%26+HOKIE+GRILL",
+      "mealNames":["Daily+Items"],
+      "shops":{
+        "Daily Specials":{
+          "subShops":["dailyspecials"]
+        },
+        "Garden Soups":{
+          "subShops":["gardensoups"]
+        },
+        "Farms & Fields":{
+          "subShops":["farms&fields"]
+        },
+        "Carvery Chicken & Side Items":{
+          "subShops":["carverychicken&sideitems"]
+        },
+        "Lotsa Pasta":{
+          "subShops":["lotsapasta"]
+        },
+        "Bowl Dynasty":{
+          "subShops":["bowldynasty"]
+        },
+        "Frank's Deli":{
+          "subShops":["franksdeli"]
+        },
+        "Freshen's Yogurt & Smoothies":{
+          "subShops":["freshensyogurt&smoothies"]
+        },
+        "La Cantina":{
+          "subShops":["lacantina"]
+        },
+        "Philly City":{
+          "subShops":["phillycity"]
+        },
+        "Sweet Temptations":{
+          "subShops":["sweettemptations"]
+        },
+        "The Garden":{
+          "subShops":["thegarden"]
+        },
+        "The Oasis":{
+          "subShops":["theoasis"]
+        },
+        "Flips":{
+          "subShops":["flips"]
+        }
+      }
+    },
+    "Turner Place":{
+      "validMenu":true,
+      "locationNum":"14",
+      "locationName":"TURNER+PLACE+AT+LAVERY+HALL",
+      "mealNames":["Breakfast", "Lunch+%26+Dinner"],
+      "shops":{
+        "1872 Fire Grill":{
+          "subShops":["firegrillsoutherncomfort", "firegrillsoutherncomfortspecials",
+            "firegrillgrilledmeat&seafood", "firegrillsides&desserts"]
+        },
+        "Soup Garden":{
+          "subShops":["soupgarden:todaysspecial", "soupgarden:soups&breads", "soupgarden:salads",
+            "soupgarden:saladdressings"]
+        },
+        "Atomic Pizzeria":{
+          "subShops":["atomicpizza:pizzas", "atomicpizza:todaysspecial", "atomicpizza:pastas&sauces",
+            "atomicpizza:salads&desserts"]
+        },
+        "Dolci e Caffe":{
+          "subShops":["dolceecaffepastries", "dolceecaffe:dailycrepe", "dolceecaffe:crepefillings",
+            "dolceecaffe:gelato&sorbettos", "dolceecaffe:grabngo"]
+        },
+        "Origami Grill":{
+          "subShops":["origamigrill", "sushi"]
+        },
+        "Jamba Juice":{
+          "subShops":[]
+        },
+        "Bruegger's Bagels":{
+          "subShops":[]
+        },
+        "Qdoba Mexican Grill":{
+          "subShops":[]
+        }
+      }
+    },
+    "Turner Place - 1872 Fire Grill":{
+      "validMenu":true,
+      "locationNum":"14",
+      "locationName":"TURNER+PLACE+AT+LAVERY+HALL",
+      "mealNames":["Breakfast", "Lunch+%26+Dinner"],
+      "shops":{}
+    },
+    "Turner Place - Atomic Pizzeria":{
+      "validMenu":true,
+      "locationNum":"14",
+      "locationName":"TURNER+PLACE+AT+LAVERY+HALL",
+      "mealNames":["Breakfast", "Lunch+%26+Dinner"],
+      "shops":{}
+    },
+    "Turner Place - Bruegger's Bagels":{
+      "validMenu":false,
+      "locationNum":"14",
+      "locationName":"TURNER+PLACE+AT+LAVERY+HALL",
+      "mealNames":["Breakfast", "Lunch+%26+Dinner"],
+      "shops":{}
+    },
+    "Turner Place - Dolci e Caffe":{
+      "validMenu":true,
+      "locationNum":"14",
+      "locationName":"TURNER+PLACE+AT+LAVERY+HALL",
+      "mealNames":["Breakfast", "Lunch+%26+Dinner"],
+      "shops":{}
+    },
+    "Turner Place - Jamba Juice":{
+      "validMenu":false,
+      "locationNum":"14",
+      "locationName":"TURNER+PLACE+AT+LAVERY+HALL",
+      "mealNames":["Breakfast", "Lunch+%26+Dinner"],
+      "shops":{}
+    },
+    "Turner Place - Origami Grill":{
+      "validMenu":true,
+      "locationNum":"14",
+      "locationName":"TURNER+PLACE+AT+LAVERY+HALL",
+      "mealNames":["Breakfast", "Lunch+%26+Dinner"],
+      "shops":{}
+    },
+    "Turner Place - Origami Sushi":{
+      "validMenu":true,
+      "locationNum":"14",
+      "locationName":"TURNER+PLACE+AT+LAVERY+HALL",
+      "mealNames":["Breakfast", "Lunch+%26+Dinner"],
+      "shops":{}
+    },
+    "Turner Place - Qdoba Mexican Grill":{
+      "validMenu":false,
+      "locationNum":"14",
+      "locationName":"TURNER+PLACE+AT+LAVERY+HALL",
+      "mealNames":["Breakfast", "Lunch+%26+Dinner"],
+      "shops":{}
+    },
+    "Turner Place - Soup Garden":{
+      "validMenu":true,
+      "locationNum":"14",
+      "locationName":"TURNER+PLACE+AT+LAVERY+HALL",
+      "mealNames":["Breakfast", "Lunch+%26+Dinner"],
+      "shops":{}
+    },
+    "Vet Med Cafe":{
+      "validMenu":true,
+      "locationNum":"19",
+      "locationName":"VET+MED",
+      "mealNames":["Breakfast", "Lunch"],
+      "shops":{}
+    },
+    "West End Market":{
+      "validMenu":true,
+      "locationNum":"16",
+      "locationName":"WEST+END+MKT+AT+COCHRANE+HALL",
+      "mealNames":["Daily+Items"],
+      "shops":{}
+    }
+  }
+}
