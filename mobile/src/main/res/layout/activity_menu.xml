@@ -8,26 +8,43 @@
     android:padding="5dp"
     tools:context=".MenuActivity">
 
-    <TextView
-        android:id="@+id/name"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:text="Dining Hall Name"
-        android:gravity="center_vertical|center_horizontal" />
+        android:layout_weight="2"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/date"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:text="Date"
-        android:gravity="center_vertical|center_horizontal" />
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="Dining Hall Name"
+            android:gravity="center_vertical|center_horizontal" />
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="Date"
+            android:textSize="@dimen/title_text_size"
+            android:textStyle="bold"
+            android:gravity="bottom|center_horizontal" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="Click any item to expand"
+            android:gravity="top|center_horizontal"
+            android:textStyle="italic" />
+    </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="8"
+        android:layout_weight="8.75"
         android:id="@+id/scrollView" >
 
         <LinearLayout

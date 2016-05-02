@@ -9,12 +9,9 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,9 +37,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private DiningHallManager dhm;
 
-    private Button abpGLC, abpSQC, abpSQK, abpGDWN, burger37, d2, deets, dunkin, dx, hokieGrill,
-            owens, turnerFireGrill, turnerPizza, turnerBagel, turnerDolci, turnerJamba,
-            turnerOrigamiGrill, turnerOrigamiSushi, turnerQdoba, turnerSoup, vetMedCafe, westEnd;
+    private int dateCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,11 +54,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         try {
             findViewById(R.id.btn_prevDay).setOnClickListener(this);
             findViewById(R.id.btn_nextDay).setOnClickListener(this);
+            findViewById(R.id.btn_today).setOnClickListener(this);
         }
         catch(Exception e) {
             Log.d("MainActivity", e.toString());
             e.printStackTrace();
         }
+
+        dateCount = 0;
 
         prepareData();
     }
@@ -107,10 +105,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch(v.getId()) {
             case R.id.btn_prevDay:
                 calendar.add(Calendar.DATE, -1);
+                dateCount--;
                 prepareData();
                 break;
             case R.id.btn_nextDay:
                 calendar.add(Calendar.DATE, 1);
+                dateCount++;
+                prepareData();
+                break;
+            case R.id.btn_today:
+                calendar.add(Calendar.DATE, -1*dateCount);
+                dateCount = 0;
                 prepareData();
                 break;
             default:
@@ -175,13 +180,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             TextView tv = new TextView(this);
             tv.setText(diningHall.getHumanName());
-            tv.setTypeface(null, Typeface.BOLD);
+            tv.setTypeface(tv.getTypeface(), Typeface.BOLD);
             nameAndHours.addView(tv);
 
             for (DiningHallTime time : diningHall.getDiningHallTimes()) {
                 tv = new TextView(this);
                 tv.setText(time.getDescription());
-                tv.setTypeface(null, Typeface.ITALIC);
+                tv.setTypeface(tv.getTypeface(), Typeface.ITALIC);
                 nameAndHours.addView(tv);
             }
 

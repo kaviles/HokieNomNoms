@@ -91,6 +91,10 @@ public class DiningMenuManager {
         }
     }
 
+    public ArrayList<DiningMenu> getCurrDiningHallsList() {
+        return menusList;
+    }
+
     public DiningMenuManager(MenuActivity MenuActivity,
                              String locnum, String locname, ArrayList<String> menuNames) {
         ma = MenuActivity;
