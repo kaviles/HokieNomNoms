@@ -81,7 +81,8 @@ public class MainActivity extends SwipeActivity implements View.OnClickListener 
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_calendar) {
-            return true;
+            Intent intent = new Intent(this, CalendarActivity.class);
+            startActivity(intent);
         }
         else if (id == R.id.action_notifications) {
             return true;
