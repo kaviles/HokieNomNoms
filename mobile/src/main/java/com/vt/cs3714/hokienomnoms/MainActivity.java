@@ -29,6 +29,9 @@ public class MainActivity extends SwipeActivity implements View.OnClickListener 
     public final static String YEAR = "YEAR";
     public final static String MENU_NAMES = "MENU_NAMES";
 
+    public final static String CAL_DAY ="CAL_DAY";
+    public final static String CAL_MONTH ="CAL_MONTH";
+    public final static String CAL_YEAR ="CAL_YEAR";
     private TextView tv_date;
     private LinearLayout ll;
 
@@ -61,6 +64,14 @@ public class MainActivity extends SwipeActivity implements View.OnClickListener 
         }
 
         dateCount = 0;
+        Intent intent = getIntent();
+        int day = intent.getIntExtra(CAL_DAY, 0);
+        int month = intent.getIntExtra(CAL_MONTH, 0);
+        int year = intent.getIntExtra(CAL_YEAR, 0);
+        if (year != 0) {
+            calendar.set(year, month, day);
+        }
+
 
         prepareData();
     }
