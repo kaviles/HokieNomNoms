@@ -1,5 +1,6 @@
 package com.vt.cs3714.hokienomnoms;
 
+import android.location.Location;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -10,6 +11,8 @@ import java.util.Date;
  * Created by Kelvin on 4/26/16.
  */
 public class DiningHall {
+
+    private Location loc;
 
     private String humanName;
 
@@ -83,6 +86,14 @@ public class DiningHall {
 
     public void setLocationNum(String number) {
         locNum = number;
+    }
+
+    public void setLocation(Location location) {
+        loc = location;
+    }
+
+    public Location getLocation() {
+        return loc;
     }
 
     public ArrayList<String> getMenuNamesArrayList() {

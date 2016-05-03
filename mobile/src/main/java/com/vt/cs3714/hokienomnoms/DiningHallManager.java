@@ -1,5 +1,6 @@
 package com.vt.cs3714.hokienomnoms;
 
+import android.location.Location;
 import android.os.AsyncTask;
 
 import org.jsoup.nodes.Document;
@@ -92,6 +93,13 @@ public class DiningHallManager {
                                     newHall.setYear(params[2]);
 
                                     try {
+                                        JSONArray gpsCoord = hallObj.getJSONArray("coord");
+
+                                        Location location = new Location("DINING_HALL_MANAGER");
+                                        location.setLatitude(gpsCoord.getDouble(0));
+                                        location.setLongitude(gpsCoord.getDouble(1));
+                                        newHall.setLocation(location);
+
                                         newHall.setLocationName(hallObj.getString("locationName"));
                                         newHall.setLocationNum(hallObj.getString("locationNum"));
                                         newHall.setValidMenu(hallObj.getBoolean("validMenu"));

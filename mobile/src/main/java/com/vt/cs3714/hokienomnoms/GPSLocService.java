@@ -1,6 +1,8 @@
 package com.vt.cs3714.hokienomnoms;
 
 import android.Manifest;
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +15,9 @@ import android.os.IBinder;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+
 public class GPSLocService extends Service {
     private final String TAG = this.getClass().getSimpleName();
 
@@ -21,6 +26,8 @@ public class GPSLocService extends Service {
 //    static public String EXTRA_NEW_LOCATION_LON = "NEW_LOCATION_LON";
 
     private final IBinder mBinder = new GPSLocServiceBinder();
+
+    private ArrayList<DiningHall> dHallList;
 
     private LocationManager mLocationManager = null;
     private static final int LOCATION_INTERVAL = 10000;
@@ -39,21 +46,41 @@ public class GPSLocService extends Service {
             Log.e(TAG, "onLocationChanged: " + location);
             mLastLocation.set(location);
 
+            DiningHall closestHall = null;
+            double distance = 1610; // 1 mile
+
+            if (dHallList != null) {
+
+                for (DiningHall diningHall : dHallList) {
+
+                    double newDistance = mLastLocation.distanceTo(diningHall.getLocation());
+                    if (newDistance < distance) {
+                        distance = newDistance;
+                        closestHall = diningHall;
+                    }
+                }
+            }
+
+            if (closestHall != null) {
+                String text = closestHall.getHumanName() + " is " +
+                        String.valueOf(new DecimalFormat("#.##").format(distance)) + " meters away!";
+
+                Notification n  = new Notification.Builder(GPSLocService.this)
+                        .setContentTitle("Hokie Nom Noms")
+                        .setContentText(text)
+                        .setSmallIcon(R.drawable.ic_action_mustache).build();
+
+                NotificationManager notificationManager =
+                        (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
+                notificationManager.notify(0, n);
+            }
+
 //            // Broadcasting
 //            Intent intent = new Intent(ACTION_LOCATION_CHANGED);
 //            intent.putExtra(EXTRA_NEW_LOCATION_LAT, mLastLocation.getLatitude());
 //            intent.putExtra(EXTRA_NEW_LOCATION_LON, mLastLocation.getLongitude());
 //            sendBroadcast(intent);
-
-//            Notification n  = new Notification.Builder(GPSLocService.this)
-//                    .setContentTitle("GPS Location Update")
-//                    .setContentText("Hokie Nom Noms")
-//                    .setSmallIcon(R.drawable.ic_action_mustache).build();
-//
-//            NotificationManager notificationManager =
-//                    (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-//
-//            notificationManager.notify(0, n);
         }
 
         @Override
@@ -87,6 +114,10 @@ public class GPSLocService extends Service {
     @Override
     public IBinder onBind(Intent intent) {
         return mBinder;
+    }
+
+    public void setDiningHallList(ArrayList<DiningHall> diningHallList) {
+        dHallList = diningHallList;
     }
 
     @Override

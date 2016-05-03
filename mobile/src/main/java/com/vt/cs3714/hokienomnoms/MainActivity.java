@@ -39,6 +39,7 @@ public class MainActivity extends SwipeActivity implements View.OnClickListener 
     private GPSLocService mGPSLocService;
     private boolean mBound;
 
+    private ArrayList<DiningHall> currentDayDiningHalls;
 
     private final static SimpleDateFormat sdf = new SimpleDateFormat("E, MMMM d, y");
 
@@ -68,7 +69,6 @@ public class MainActivity extends SwipeActivity implements View.OnClickListener 
             GPSLocService.GPSLocServiceBinder binder = (GPSLocService.GPSLocServiceBinder) service;
             mGPSLocService = binder.getService();
             mBound = true;
-
         }
 
         @Override
@@ -246,6 +246,12 @@ public class MainActivity extends SwipeActivity implements View.OnClickListener 
     };
 
     public void updateUI(ArrayList<DiningHall> diningHallArrayList) {
+
+        // Counting on this being slower than the GPSLocService starting up.
+        if (currentDayDiningHalls == null && mGPSLocService != null) {
+            currentDayDiningHalls = diningHallArrayList;
+            mGPSLocService.setDiningHallList(currentDayDiningHalls);
+        }
 
         ll.removeAllViews();
 

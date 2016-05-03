@@ -13,6 +13,7 @@
     "Turner Place - Soup Garden", "Vet Med Cafe", "West End Market"],
   "halls":{
     "Au Bon Pain - GLC":{
+      "coord":[37.228312, -80.417596],
       "validMenu":false,
       "locationNum":"01",
       "locationName":"AU+BON+PAIN+AT+SQUIRES%2c+GLC+%26+GOODWIN+HALL",
@@ -20,6 +21,7 @@
       "shops":{}
     },
     "Au Bon Pain - Squires Cafe":{
+      "coord":[37.229641, -80.418001],
       "validMenu":false,
       "locationNum":"01",
       "locationName":"AU+BON+PAIN+AT+SQUIRES%2c+GLC+%26+GOODWIN+HALL",
@@ -27,6 +29,7 @@
       "shops":{}
     },
     "Au Bon Pain - Squires Kiosk":{
+      "coord":[37.229651, -80.417803],
       "validMenu":false,
       "locationNum":"01",
       "locationName":"AU+BON+PAIN+AT+SQUIRES%2c+GLC+%26+GOODWIN+HALL",
@@ -34,6 +37,7 @@
       "shops":{}
     },
     "Au Bon Pain at Goodwin Hall":{
+      "coord":[37.232548, -80.425654],
       "validMenu":false,
       "locationNum":"01",
       "locationName":"AU+BON+PAIN+AT+SQUIRES%2c+GLC+%26+GOODWIN+HALL",
@@ -41,6 +45,7 @@
       "shops":{}
     },
     "Burger '37":{
+      "coord":[37.229483, -80.418337],
       "validMenu":true,
       "locationNum":"18",
       "locationName":"BURGER+%2737+AT+SQUIRES",
@@ -48,6 +53,7 @@
       "shops":{}
     },
     "D2":{
+      "coord":[37.224540, -80.421155],
       "validMenu":true,
       "locationNum":"15",
       "locationName":"D2+AT+DIETRICK+HALL",
@@ -55,6 +61,7 @@
       "shops":{}
     },
     "Deet's Place":{
+      "coord":[37.224288, -80.421330],
       "validMenu":true,
       "locationNum":"07",
       "locationName":"DEET%27S+PLACE",
@@ -62,10 +69,12 @@
       "shops":{}
     },
     "Dunkin Donuts":{
+      "coord":[37.226945, -80.418484],
       "validMenu":false,
       "shops":{}
     },
     "DXpress":{
+      "coord":[37.224596, -80.420744],
       "validMenu":true,
       "locationNum":"13",
       "locationName":"DXPRESS+AT+DIETRICK+HALL",
@@ -73,6 +82,7 @@
       "shops":{}
     },
     "Hokie Grill & Co.":{
+      "coord":[37.226844, -80.418626],
       "validMenu":true,
       "locationNum":"09",
       "locationName":"OWENS+%26+HOKIE+GRILL",
@@ -93,6 +103,7 @@
       }
     },
     "Owens Food Court":{
+      "coord":[37.226490, -80.419126],
       "validMenu":true,
       "locationNum":"09",
       "locationName":"OWENS+%26+HOKIE+GRILL",
@@ -143,6 +154,7 @@
       }
     },
     "Turner Place":{
+      "coord":[],
       "validMenu":true,
       "locationNum":"14",
       "locationName":"TURNER+PLACE+AT+LAVERY+HALL",
@@ -179,6 +191,7 @@
       }
     },
     "Turner Place - 1872 Fire Grill":{
+      "coord":[37.231301, -80.422964],
       "validMenu":true,
       "locationNum":"14",
       "locationName":"TURNER+PLACE+AT+LAVERY+HALL",
@@ -186,6 +199,7 @@
       "shops":{}
     },
     "Turner Place - Atomic Pizzeria":{
+      "coord":[37.231134, -80.422664],
       "validMenu":true,
       "locationNum":"14",
       "locationName":"TURNER+PLACE+AT+LAVERY+HALL",
@@ -193,6 +207,7 @@
       "shops":{}
     },
     "Turner Place - Bruegger's Bagels":{
+      "coord":[37.230952, -80.422805],
       "validMenu":false,
       "locationNum":"14",
       "locationName":"TURNER+PLACE+AT+LAVERY+HALL",
@@ -200,6 +215,7 @@
       "shops":{}
     },
     "Turner Place - Dolci e Caffe":{
+      "coord":[37.231136, -80.422712],
       "validMenu":true,
       "locationNum":"14",
       "locationName":"TURNER+PLACE+AT+LAVERY+HALL",
@@ -207,6 +223,7 @@
       "shops":{}
     },
     "Turner Place - Jamba Juice":{
+      "coord":[37.231186, -80.422819],
       "validMenu":false,
       "locationNum":"14",
       "locationName":"TURNER+PLACE+AT+LAVERY+HALL",
@@ -214,6 +231,7 @@
       "shops":{}
     },
     "Turner Place - Origami Grill":{
+      "coord":[37.231227, -80.422902],
       "validMenu":true,
       "locationNum":"14",
       "locationName":"TURNER+PLACE+AT+LAVERY+HALL",
@@ -221,6 +239,7 @@
       "shops":{}
     },
     "Turner Place - Origami Sushi":{
+      "coord":[37.231227, -80.422902],
       "validMenu":true,
       "locationNum":"14",
       "locationName":"TURNER+PLACE+AT+LAVERY+HALL",
@@ -228,6 +247,7 @@
       "shops":{}
     },
     "Turner Place - Qdoba Mexican Grill":{
+      "coord":[37.231407, -80.423018],
       "validMenu":false,
       "locationNum":"14",
       "locationName":"TURNER+PLACE+AT+LAVERY+HALL",
@@ -235,6 +255,7 @@
       "shops":{}
     },
     "Turner Place - Soup Garden":{
+      "coord":[37.231242, -80.422862],
       "validMenu":true,
       "locationNum":"14",
       "locationName":"TURNER+PLACE+AT+LAVERY+HALL",
@@ -242,6 +263,7 @@
       "shops":{}
     },
     "Vet Med Cafe":{
+      "coord":[37.217628, -80.427822],
       "validMenu":true,
       "locationNum":"19",
       "locationName":"VET+MED",
@@ -249,6 +271,7 @@
       "shops":{}
     },
     "West End Market":{
+      "coord":[37.223399, -80.421905],
       "validMenu":true,
       "locationNum":"16",
       "locationName":"WEST+END+MKT+AT+COCHRANE+HALL",
