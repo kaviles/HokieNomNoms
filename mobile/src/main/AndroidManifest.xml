@@ -27,9 +27,6 @@
             android:enabled="true"
             android:exported="true"></service>
 
-        <activity android:name=".MenuActivity"
-                  android:screenOrientation="portrait"></activity>
-
         <activity android:name=".CalendarActivity"
                   android:screenOrientation="portrait"></activity>
     </application>
