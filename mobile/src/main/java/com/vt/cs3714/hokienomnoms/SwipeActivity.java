@@ -1,14 +1,14 @@
 package com.vt.cs3714.hokienomnoms;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 
 /**
  * Created by Adam on 5/2/2016.
  */
-public abstract class SwipeActivity extends Activity
+public abstract class SwipeActivity extends AppCompatActivity
 {
     private static final int SWIPE_MIN_DISTANCE = 120;
     private static final int SWIPE_MAX_OFF_PATH = 250;
