@@ -1,6 +1,10 @@
 package com.vt.cs3714.hokienomnoms;
 
+import android.util.Log;
+
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by Kelvin on 4/26/16.
@@ -19,8 +23,6 @@ public class DiningHall {
     private String y;
 
     private ArrayList<DiningHallTime> diningHallTimes;
-
-    private HallStatus status;
 
     public DiningHall() {
         menuNames = new ArrayList<>();
@@ -92,20 +94,50 @@ public class DiningHall {
     }
 
     public void addHallTime(String hoursDescription) {
-        diningHallTimes.add(new DiningHallTime(hoursDescription));
+        DiningHallTime dht = new DiningHallTime(hoursDescription);
+        dht.setYear(Integer.parseInt(y));
+        dht.setMonth(Integer.parseInt(m));
+        dht.setDay(Integer.parseInt(d));
+        diningHallTimes.add(dht);
     }
 
     public ArrayList<DiningHallTime> getDiningHallTimes() {
         return diningHallTimes;
     }
 
-    public void setStatus(HallStatus status)
+    public HallStatus getStatus(Calendar cal)
     {
-        this.status = status;
-    }
+        HallStatus status = HallStatus.CLOSED;
 
-    public HallStatus getStatus()
-    {
+        for(int i = 0; i < diningHallTimes.size(); i++)
+        {
+            DiningHallTime dht = diningHallTimes.get(i);
+
+            Date openDate = dht.getOpen().getTime();
+            Date closeDate = dht.getClose().getTime();
+            Date curDate = cal.getTime();
+
+            Date openDayBefore = (Date) openDate.clone();
+            openDayBefore.setDate(openDayBefore.getDay() - 1);
+
+            if((curDate.before(closeDate) && curDate.after(openDate)) ||
+                    (humanName.equals("DXpress") && curDate.before(closeDate)
+                            && curDate.after(openDayBefore)))
+            {
+                Date minusHour = (Date) closeDate.clone();
+                minusHour.setHours(minusHour.getHours() - 1);
+
+                if(curDate.after(minusHour) || curDate.equals(minusHour))
+                {
+                    status = HallStatus.CLOSINGSOON;
+                }
+                else
+                {
+                    status = HallStatus.OPEN;
+                }
+            }
+        }
+
         return status;
     }
 }

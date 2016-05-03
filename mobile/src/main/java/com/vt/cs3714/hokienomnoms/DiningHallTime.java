@@ -1,5 +1,7 @@
 package com.vt.cs3714.hokienomnoms;
 
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -15,6 +17,9 @@ public class DiningHallTime {
 
     private String d;
     private int[][] t;
+
+    private Calendar open;
+    private Calendar close;
 
     /**
      * Converts the string hour data in the description
@@ -36,13 +41,29 @@ public class DiningHallTime {
                 t[i][0] = Integer.parseInt(num[0]);
                 t[i][1] = Integer.parseInt(num[1]);
 
+                /*
                 if (timeSmeridiem[1].compareTo("am") == 0 ||
                         timeSmeridiem[1].compareTo("AM") == 0) {
-                    t[i][2] = 0;
+                    t[i][1] +;
                 }
-                else if (timeSmeridiem[1].compareTo("pm") == 0 ||
+                */
+
+                if (timeSmeridiem[1].compareTo("pm") == 0 ||
                         timeSmeridiem[1].compareTo("PM") == 0) {
-                    t[i][2] = 1;
+                    t[i][0] += 12;
+                }
+
+                if(i == 0)
+                {
+                    open.set(Calendar.HOUR_OF_DAY, t[0][0]);
+                    open.set(Calendar.MINUTE, t[0][1]);
+                    open.set(Calendar.SECOND, 0);
+                }
+                else
+                {
+                    close.set(Calendar.HOUR_OF_DAY, t[1][0]);
+                    close.set(Calendar.MINUTE, t[1][1]);
+                    close.set(Calendar.SECOND, 0);
                 }
 
                 i++;
@@ -51,11 +72,9 @@ public class DiningHallTime {
         else {
             t[0][0] = 0;
             t[0][1] = 0;
-            t[0][2] = 0;
 
             t[1][0] = 0;
             t[1][1] = 0;
-            t[1][2] = 0;
         }
     }
 
@@ -79,14 +98,46 @@ public class DiningHallTime {
 
     public DiningHallTime(String hoursDescription) {
 
+        open = Calendar.getInstance();
+        close = Calendar.getInstance();
+
         if (p == null) {
             p = Pattern.compile(pattern);
         }
 
         d = hoursDescription;
-        t = new int[2][3];
+        t = new int[2][2];
 
         setIntegerHours();
+    }
+
+    public void setYear(int year)
+    {
+        open.set(Calendar.YEAR, year);
+        close.set(Calendar.YEAR, year);
+    }
+
+    public void setMonth(int month)
+    {
+        open.set(Calendar.MONTH, month - 1);
+        close.set(Calendar.MONTH, month - 1);
+    }
+
+    public void setDay(int day)
+    {
+        open.set(Calendar.DAY_OF_MONTH, day);
+        close.set(Calendar.DAY_OF_MONTH, day);
+
+        /*
+        if(t[0][0] > t[1][0])
+        {
+            close.set(Calendar.DAY_OF_MONTH, day );
+        }
+        else
+        {
+            close.set(Calendar.DAY_OF_MONTH, day);
+        }
+        */
     }
 
     /**
@@ -104,10 +155,18 @@ public class DiningHallTime {
      *      int[1][x]: closing hour data.
      *      int[x][0]: hour
      *      int[x][0]: minute
-     *      int[x][0]: meridiem, 0: am, 1: pm
      */
     public int[][] getHourRange() {
         return t;
     }
 
+    public Calendar getOpen()
+    {
+        return open;
+    }
+
+    public Calendar getClose()
+    {
+        return close;
+    }
 }

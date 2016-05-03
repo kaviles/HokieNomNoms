@@ -29,7 +29,10 @@ public class MainActivity extends SwipeActivity implements View.OnClickListener 
     public final static String YEAR = "YEAR";
     public final static String MENU_NAMES = "MENU_NAMES";
 
+    private final static SimpleDateFormat sdf = new SimpleDateFormat("E, MMMM d, y");
+
     private TextView tv_date;
+    private TextView title;
     private LinearLayout ll;
 
     private Calendar calendar;
@@ -37,6 +40,10 @@ public class MainActivity extends SwipeActivity implements View.OnClickListener 
     private DiningHallManager dhm;
 
     private int dateCount;
+
+    Calendar cal;
+    String todaysDate;
+    Boolean dateIsToday;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +53,7 @@ public class MainActivity extends SwipeActivity implements View.OnClickListener 
         calendar = Calendar.getInstance();
 
         tv_date = (TextView) findViewById(R.id.date);
+        title = (TextView) findViewById(R.id.title);
         ll  = (LinearLayout) findViewById(R.id.linearLayout);
 
         dhm = new DiningHallManager(this);
@@ -62,7 +70,13 @@ public class MainActivity extends SwipeActivity implements View.OnClickListener 
 
         dateCount = 0;
 
+        cal = Calendar.getInstance();
+        //cal.set(Calendar.HOUR_OF_DAY, 20);
+        todaysDate = sdf.format(cal.getTime());
+
         prepareData();
+
+        dateIsToday = true;
     }
 
     @Override
@@ -135,6 +149,7 @@ public class MainActivity extends SwipeActivity implements View.OnClickListener 
     public void today()
     {
         calendar.add(Calendar.DATE, -1*dateCount);
+        calendar.set(Calendar.DAY_OF_MONTH, 25);
         dateCount = 0;
         prepareData();
     }
@@ -179,77 +194,147 @@ public class MainActivity extends SwipeActivity implements View.OnClickListener 
 
         ll.removeAllViews();
 
-        SimpleDateFormat sdf = new SimpleDateFormat("E, MMMM d, y");
-
         tv_date.setText(sdf.format(calendar.getTime()));
+
+        if(tv_date.getText().equals(todaysDate))
+        {
+            dateIsToday = true;
+            title.setText("Open Dining Halls");
+        }
+        else
+        {
+            dateIsToday = false;
+            title.setText("Dining Halls");
+        }
 
         for (int i = 0; i < diningHallArrayList.size(); i++){
             DiningHall diningHall = diningHallArrayList.get(i);
 
-            LinearLayout hallDataLayout = new LinearLayout(this);
-            hallDataLayout.setOrientation(LinearLayout.HORIZONTAL);
-            hallDataLayout.setOnClickListener(btn_hallClickListener);
-            hallDataLayout.setTag(i);
-
-            LinearLayout nameAndHours = new LinearLayout(this);
-            nameAndHours.setOrientation(LinearLayout.VERTICAL);
-
-            TextView tv = new TextView(this);
-            tv.setText(diningHall.getHumanName());
-            tv.setTypeface(tv.getTypeface(), Typeface.BOLD);
-            nameAndHours.addView(tv);
-
-            for (DiningHallTime time : diningHall.getDiningHallTimes()) {
-                tv = new TextView(this);
-                tv.setText(time.getDescription());
-                tv.setTypeface(tv.getTypeface(), Typeface.ITALIC);
-                nameAndHours.addView(tv);
-            }
-
-            FrameLayout statusIcon = new FrameLayout(this);
-            ImageView iv = new ImageView(this);
-
-            HallStatus status = diningHall.getStatus();
-            if(status != null)
+            if(dateIsToday)
             {
-                switch (status)
+                boolean open = false;
+                boolean closingSoon = false;
+
+                HallStatus status = diningHall.getStatus(cal);
+                if (status != null)
                 {
-                    case OPEN:
-                        iv.setImageResource(R.drawable.greenlight);
-                        break;
-                    case CLOSED:
-                        iv.setImageResource(R.drawable.redlight);
-                        break;
-                    case CLOSINGSOON:
+                    switch (status)
+                    {
+                        case OPEN:
+                            open = true;
+                            break;
+                        case CLOSED:
+                            open = false;
+                            break;
+                        case CLOSINGSOON:
+                            open = true;
+                            closingSoon = true;
+                            break;
+                    }
+                }
+                else
+                {
+                    open = false;
+                }
+
+                if(open)
+                {
+                    LinearLayout hallDataLayout = new LinearLayout(this);
+                    hallDataLayout.setOrientation(LinearLayout.HORIZONTAL);
+                    hallDataLayout.setOnClickListener(btn_hallClickListener);
+                    hallDataLayout.setTag(i);
+
+                    LinearLayout nameAndHours = new LinearLayout(this);
+                    nameAndHours.setOrientation(LinearLayout.VERTICAL);
+
+                    TextView tv = new TextView(this);
+                    tv.setText(diningHall.getHumanName());
+                    tv.setTypeface(tv.getTypeface(), Typeface.BOLD);
+                    nameAndHours.addView(tv);
+
+                    for (DiningHallTime time : diningHall.getDiningHallTimes()) {
+                        tv = new TextView(this);
+                        tv.setText(time.getDescription());
+                        tv.setTypeface(tv.getTypeface(), Typeface.ITALIC);
+                        nameAndHours.addView(tv);
+                    }
+
+                    FrameLayout statusIcon = new FrameLayout(this);
+                    ImageView iv = new ImageView(this);
+
+                    if(closingSoon)
+                    {
                         iv.setImageResource(R.drawable.yellowlight);
-                        break;
+                    }
+                    else
+                    {
+                        iv.setImageResource(R.drawable.greenlight);
+                    }
+
+                    statusIcon.addView(iv);
+
+                    //Set layout params for FrameLayout containing imageview to 50x50 and add the
+                    // FrameLayout to the hallDataLayout (horizontal linear layout)
+                    FrameLayout.LayoutParams statusLayoutParams =
+                            new FrameLayout.LayoutParams(50, 50);
+                    statusLayoutParams.gravity = Gravity.CENTER_VERTICAL; //this is not working for some reason...
+                    hallDataLayout.addView(statusIcon, statusLayoutParams);
+
+                    //Set layout params for the nameAndHours vertical linear layout to match x wrap,
+                    // set the start margin (left margin) to 20 ,and add the layout to the
+                    // hallDataLayout (horizontal linear layout)
+                    LinearLayout.LayoutParams infoLayoutParams = new LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                    infoLayoutParams.setMarginStart(20);
+                    hallDataLayout.addView(nameAndHours, infoLayoutParams);
+
+                    //Set layout params for the hallDataLayout horizontal linear layout to match x wrap,
+                    // set margins to left=0, top=20, right=0, bottom=20, and add the layout to the
+                    // main vertical linear layout containing all current dining halls/hours
+                    LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                    layoutParams.setMargins(0, 20, 0, 20);
+                    ll.addView(hallDataLayout, layoutParams);
                 }
             }
+            else
+            {
+                LinearLayout hallDataLayout = new LinearLayout(this);
+                hallDataLayout.setOrientation(LinearLayout.HORIZONTAL);
+                hallDataLayout.setOnClickListener(btn_hallClickListener);
+                hallDataLayout.setTag(i);
 
-            statusIcon.addView(iv);
+                LinearLayout nameAndHours = new LinearLayout(this);
+                nameAndHours.setOrientation(LinearLayout.VERTICAL);
 
-            //Set layout params for FrameLayout containing imageview to 100x100 and add the
-            // FrameLayout to the hallDataLayout (horizontal linear layout)
-            FrameLayout.LayoutParams statusLayoutParams =
-                    new FrameLayout.LayoutParams(100, 100);
-            statusLayoutParams.gravity = Gravity.CENTER_VERTICAL; //this is not working for some reason...
-            hallDataLayout.addView(statusIcon, statusLayoutParams);
+                TextView tv = new TextView(this);
+                tv.setText(diningHall.getHumanName());
+                tv.setTypeface(tv.getTypeface(), Typeface.BOLD);
+                nameAndHours.addView(tv);
 
-            //Set layout params for the nameAndHours vertical linear layout to match x wrap,
-            // set the start margin (left margin) to 20 ,and add the layout to the
-            // hallDataLayout (horizontal linear layout)
-            LinearLayout.LayoutParams infoLayoutParams = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            infoLayoutParams.setMarginStart(20);
-            hallDataLayout.addView(nameAndHours, infoLayoutParams);
+                for (DiningHallTime time : diningHall.getDiningHallTimes()) {
+                    tv = new TextView(this);
+                    tv.setText(time.getDescription());
+                    tv.setTypeface(tv.getTypeface(), Typeface.ITALIC);
+                    nameAndHours.addView(tv);
+                }
 
-            //Set layout params for the hallDataLayout horizontal linear layout to match x wrap,
-            // set margins to left=0, top=20, right=0, bottom=20, and add the layout to the
-            // main vertical linear layout containing all current dining halls/hours
-            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            layoutParams.setMargins(0, 20, 0, 20);
-            ll.addView(hallDataLayout, layoutParams);
+                //Set layout params for the nameAndHours vertical linear layout to match x wrap,
+                // set the start margin (left margin) to 20 ,and add the layout to the
+                // hallDataLayout (horizontal linear layout)
+                LinearLayout.LayoutParams infoLayoutParams = new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                infoLayoutParams.setMarginStart(20);
+                hallDataLayout.addView(nameAndHours, infoLayoutParams);
+
+                //Set layout params for the hallDataLayout horizontal linear layout to match x wrap,
+                // set margins to left=0, top=20, right=0, bottom=20, and add the layout to the
+                // main vertical linear layout containing all current dining halls/hours
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                layoutParams.setMargins(0, 20, 0, 20);
+                ll.addView(hallDataLayout, layoutParams);
+            }
         }
     }
 }
