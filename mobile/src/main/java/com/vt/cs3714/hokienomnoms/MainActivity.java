@@ -1,7 +1,12 @@
 package com.vt.cs3714.hokienomnoms;
 
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.graphics.Typeface;
+import android.os.IBinder;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -30,6 +35,11 @@ public class MainActivity extends SwipeActivity implements View.OnClickListener 
     public final static String YEAR = "YEAR";
     public final static String MENU_NAMES = "MENU_NAMES";
 
+    private Intent i_GPSLocServiceIntent;
+    private GPSLocService mGPSLocService;
+    private boolean mBound;
+
+
     private final static SimpleDateFormat sdf = new SimpleDateFormat("E, MMMM d, y");
 
     public final static String CAL_DAY ="CAL_DAY";
@@ -45,6 +55,28 @@ public class MainActivity extends SwipeActivity implements View.OnClickListener 
 
     private DiningHallManager dhm;
 
+
+    /**
+     * Defines callbacks for service binding, passed to bindService()
+     */
+    private ServiceConnection i_GPSLocServiceConnection = new ServiceConnection() {
+
+        @Override
+        public void onServiceConnected(ComponentName className, IBinder service) {
+
+            // We've bound to LocalService, cast the IBinder and get LocalService instance
+            GPSLocService.GPSLocServiceBinder binder = (GPSLocService.GPSLocServiceBinder) service;
+            mGPSLocService = binder.getService();
+            mBound = true;
+
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName arg0) {
+            mGPSLocService = null;
+            mBound = false;
+        }
+    };
 
     Calendar cal;
     String todaysDate;
@@ -83,6 +115,12 @@ public class MainActivity extends SwipeActivity implements View.OnClickListener 
         if (year != 0) {
             calendar.set(year, month, day);
         }
+        i_GPSLocServiceIntent = new Intent(this, GPSLocService.class);
+        startService(i_GPSLocServiceIntent);
+
+        i_GPSLocServiceIntent = new Intent(this, GPSLocService.class);
+        bindService(i_GPSLocServiceIntent, i_GPSLocServiceConnection, Context.BIND_AUTO_CREATE);
+        startService(i_GPSLocServiceIntent);
 
 
         cal = Calendar.getInstance();
@@ -92,6 +130,11 @@ public class MainActivity extends SwipeActivity implements View.OnClickListener 
         prepareData();
 
         dateIsToday = true;
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
     }
 
     @Override

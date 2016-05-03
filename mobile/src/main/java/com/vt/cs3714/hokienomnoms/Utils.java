@@ -1,5 +1,8 @@
 package com.vt.cs3714.hokienomnoms;
 
+import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
+
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -86,6 +89,10 @@ public class Utils {
         }
 
         return document;
+    }
+
+    static public void toast(AppCompatActivity activity, String string) {
+        Toast.makeText(activity.getApplicationContext(), string, Toast.LENGTH_LONG).show();
     }
 
 }
