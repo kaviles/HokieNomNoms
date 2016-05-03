@@ -67,21 +67,27 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="Prev Day"
-            android:id="@+id/btn_prevDay" />
+            android:textColor="@color/colorWhite"
+            android:id="@+id/btn_prevDay"
+            android:theme="@style/MyButton"/>
 
         <Button
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="Today"
-            android:id="@+id/btn_today" />
+            android:textColor="@color/colorWhite"
+            android:id="@+id/btn_today"
+            android:theme="@style/MyButton"/>
 
         <Button
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="Next Day"
-            android:id="@+id/btn_nextDay" />
+            android:textColor="@color/colorWhite"
+            android:id="@+id/btn_nextDay"
+            android:theme="@style/MyButton"/>
     </LinearLayout>
 
 </LinearLayout>

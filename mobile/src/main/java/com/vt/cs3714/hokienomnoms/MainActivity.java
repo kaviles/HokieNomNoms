@@ -156,9 +156,6 @@ public class MainActivity extends SwipeActivity implements View.OnClickListener 
             Intent intent = new Intent(this, CalendarActivity.class);
             startActivity(intent);
         }
-        else if (id == R.id.action_notifications) {
-            return true;
-        }
 
         return super.onOptionsItemSelected(item);
     }
