@@ -6,11 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
-import android.webkit.WebSettings;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -35,8 +33,8 @@ public class MenuActivity extends AppCompatActivity {
 
         intent = getIntent();
 
-        tv_name = (TextView) findViewById(R.id.date);
-        tv_date = (TextView) findViewById(R.id.name);
+        tv_name = (TextView) findViewById(R.id.name);
+        tv_date = (TextView) findViewById(R.id.date);
         ll  = (LinearLayout) findViewById(R.id.linearLayout);
 
         dmm = new DiningMenuManager(this,

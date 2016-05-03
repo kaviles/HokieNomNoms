@@ -2,7 +2,6 @@ package com.vt.cs3714.hokienomnoms;
 
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -19,7 +18,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends SwipeActivity implements View.OnClickListener {
 
     public final static String HALL_NAME = "HALL_NAME";
     public final static String DATE_TEXT = "DATE_TEXT";
@@ -104,23 +103,40 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         switch(v.getId()) {
             case R.id.btn_prevDay:
-                calendar.add(Calendar.DATE, -1);
-                dateCount--;
-                prepareData();
+                previous();
                 break;
             case R.id.btn_nextDay:
-                calendar.add(Calendar.DATE, 1);
-                dateCount++;
-                prepareData();
+                next();
                 break;
             case R.id.btn_today:
-                calendar.add(Calendar.DATE, -1*dateCount);
-                dateCount = 0;
-                prepareData();
+                today();
                 break;
             default:
                 break;
         }
+    }
+
+    @Override
+    public void previous()
+    {
+        calendar.add(Calendar.DATE, -1);
+        dateCount--;
+        prepareData();
+    }
+
+    @Override
+    public void next()
+    {
+        calendar.add(Calendar.DATE, 1);
+        dateCount++;
+        prepareData();
+    }
+
+    public void today()
+    {
+        calendar.add(Calendar.DATE, -1*dateCount);
+        dateCount = 0;
+        prepareData();
     }
 
     private View.OnClickListener btn_hallClickListener = new View.OnClickListener() {
@@ -163,7 +179,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         ll.removeAllViews();
 
-        SimpleDateFormat sdf = new SimpleDateFormat("E, MMMM d y");
+        SimpleDateFormat sdf = new SimpleDateFormat("E, MMMM d, y");
 
         tv_date.setText(sdf.format(calendar.getTime()));
 
