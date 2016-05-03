@@ -2,7 +2,6 @@ package com.vt.cs3714.hokienomnoms;
 
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -12,7 +11,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class MenuActivity extends AppCompatActivity {
+public class MenuActivity extends SwipeActivity {
 
     private Intent intent;
 
@@ -83,7 +82,7 @@ public class MenuActivity extends AppCompatActivity {
 
             shopsArrayList = diningMenu.getShopsArrayList();
             for (int j = 0; j < shopsArrayList.size(); j++) {
-                int tag = i*10 + j;
+                int tag = i*100 + j;
                 DiningShop diningShop = shopsArrayList.get(j);
 
                 LinearLayout diningShopLayout = new LinearLayout(this);
@@ -162,5 +161,17 @@ public class MenuActivity extends AppCompatActivity {
         {
             items.addView(tv);
         }
+    }
+
+    @Override
+    protected void previous()
+    {
+        finish();
+    }
+
+    @Override
+    protected void next()
+    {
+        //do nothing
     }
 }
