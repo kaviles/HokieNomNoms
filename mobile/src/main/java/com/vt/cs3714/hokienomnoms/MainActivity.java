@@ -17,6 +17,7 @@ import android.widget.Toast;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 public class MainActivity extends SwipeActivity implements View.OnClickListener {
 
@@ -31,15 +32,19 @@ public class MainActivity extends SwipeActivity implements View.OnClickListener 
 
     private final static SimpleDateFormat sdf = new SimpleDateFormat("E, MMMM d, y");
 
+    public final static String CAL_DAY ="CAL_DAY";
+    public final static String CAL_MONTH ="CAL_MONTH";
+    public final static String CAL_YEAR ="CAL_YEAR";
+
     private TextView tv_date;
     private TextView title;
     private LinearLayout ll;
 
     private Calendar calendar;
+    private int today_day, today_month, today_year;
 
     private DiningHallManager dhm;
 
-    private int dateCount;
 
     Calendar cal;
     String todaysDate;
@@ -51,6 +56,9 @@ public class MainActivity extends SwipeActivity implements View.OnClickListener 
         setContentView(R.layout.activity_main);
 
         calendar = Calendar.getInstance();
+        today_day = calendar.get(Calendar.DAY_OF_MONTH);
+        today_month = calendar.get(Calendar.MONTH);
+        today_year = calendar.get(Calendar.YEAR);
 
         tv_date = (TextView) findViewById(R.id.date);
         title = (TextView) findViewById(R.id.title);
@@ -68,7 +76,14 @@ public class MainActivity extends SwipeActivity implements View.OnClickListener 
             e.printStackTrace();
         }
 
-        dateCount = 0;
+        Intent intent = getIntent();
+        int day = intent.getIntExtra(CAL_DAY, 0);
+        int month = intent.getIntExtra(CAL_MONTH, 0);
+        int year = intent.getIntExtra(CAL_YEAR, 0);
+        if (year != 0) {
+            calendar.set(year, month, day);
+        }
+
 
         cal = Calendar.getInstance();
         //cal.set(Calendar.HOUR_OF_DAY, 20);
@@ -95,7 +110,8 @@ public class MainActivity extends SwipeActivity implements View.OnClickListener 
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_calendar) {
-            return true;
+            Intent intent = new Intent(this, CalendarActivity.class);
+            startActivity(intent);
         }
         else if (id == R.id.action_notifications) {
             return true;
@@ -134,7 +150,6 @@ public class MainActivity extends SwipeActivity implements View.OnClickListener 
     public void previous()
     {
         calendar.add(Calendar.DATE, -1);
-        dateCount--;
         prepareData();
     }
 
@@ -142,15 +157,12 @@ public class MainActivity extends SwipeActivity implements View.OnClickListener 
     public void next()
     {
         calendar.add(Calendar.DATE, 1);
-        dateCount++;
         prepareData();
     }
 
     public void today()
     {
-        calendar.add(Calendar.DATE, -1*dateCount);
-        calendar.set(Calendar.DAY_OF_MONTH, 25);
-        dateCount = 0;
+        calendar.set(today_year, today_month, today_day);
         prepareData();
     }
 
