@@ -17,6 +17,7 @@ import android.widget.Toast;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 public class MainActivity extends SwipeActivity implements View.OnClickListener {
 
@@ -36,10 +37,10 @@ public class MainActivity extends SwipeActivity implements View.OnClickListener 
     private LinearLayout ll;
 
     private Calendar calendar;
+    private int today_day, today_month, today_year;
 
     private DiningHallManager dhm;
 
-    private int dateCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +48,9 @@ public class MainActivity extends SwipeActivity implements View.OnClickListener 
         setContentView(R.layout.activity_main);
 
         calendar = Calendar.getInstance();
+        today_day = calendar.get(Calendar.DAY_OF_MONTH);
+        today_month = calendar.get(Calendar.MONTH);
+        today_year = calendar.get(Calendar.YEAR);
 
         tv_date = (TextView) findViewById(R.id.date);
         ll  = (LinearLayout) findViewById(R.id.linearLayout);
@@ -63,7 +67,6 @@ public class MainActivity extends SwipeActivity implements View.OnClickListener 
             e.printStackTrace();
         }
 
-        dateCount = 0;
         Intent intent = getIntent();
         int day = intent.getIntExtra(CAL_DAY, 0);
         int month = intent.getIntExtra(CAL_MONTH, 0);
@@ -132,7 +135,6 @@ public class MainActivity extends SwipeActivity implements View.OnClickListener 
     public void previous()
     {
         calendar.add(Calendar.DATE, -1);
-        dateCount--;
         prepareData();
     }
 
@@ -140,14 +142,12 @@ public class MainActivity extends SwipeActivity implements View.OnClickListener 
     public void next()
     {
         calendar.add(Calendar.DATE, 1);
-        dateCount++;
         prepareData();
     }
 
     public void today()
     {
-        calendar.add(Calendar.DATE, -1*dateCount);
-        dateCount = 0;
+        calendar.set(today_year, today_month, today_day);
         prepareData();
     }
 
