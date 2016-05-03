@@ -6,6 +6,7 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.jar.Pack200;
 
 /**
  * Created by Kelvin on 4/26/16.
@@ -129,11 +130,24 @@ public class DiningHall {
             Date curDate = cal.getTime();
 
             Date openDayBefore = (Date) openDate.clone();
+            Date closeDayAfter = (Date) closeDate.clone();
             openDayBefore.setDate(openDayBefore.getDay() - 1);
+            closeDayAfter.setDate(closeDayAfter.getDay() + 2);
 
-            if((curDate.before(closeDate) && curDate.after(openDate)) ||
-                    (humanName.equals("DXpress") && curDate.before(closeDate)
-                            && curDate.after(openDayBefore)))
+            if(humanName.equals("DXpress"))
+            {
+                Log.d("OpenDayPefore", openDayBefore.toString());
+                Log.d("Open", openDate.toString());
+                Log.d("Current", curDate.toString());
+                Log.d("Close", closeDate.toString());
+            }
+
+            boolean dx = humanName.equals("DXpress") && curDate.before(closeDate)
+                    && curDate.after(openDayBefore);
+            boolean deets = humanName.equals("Deet's Place")
+                    && curDate.before(closeDayAfter) && curDate.after(openDate);
+
+            if((curDate.before(closeDate) && curDate.after(openDate)) || dx || deets)
             {
                 Date minusHour = (Date) closeDate.clone();
                 minusHour.setHours(minusHour.getHours() - 1);
@@ -145,6 +159,21 @@ public class DiningHall {
                 else
                 {
                     status = HallStatus.OPEN;
+                }
+
+                if(deets)
+                {
+                    minusHour = (Date) closeDayAfter.clone();
+                    minusHour.setHours(minusHour.getHours() - 1);
+
+                    if(curDate.after(minusHour) || curDate.equals(minusHour))
+                    {
+                        status = HallStatus.CLOSINGSOON;
+                    }
+                    else
+                    {
+                        status = HallStatus.OPEN;
+                    }
                 }
             }
         }

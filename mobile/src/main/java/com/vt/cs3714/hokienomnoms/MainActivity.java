@@ -124,7 +124,7 @@ public class MainActivity extends SwipeActivity implements View.OnClickListener 
 
 
         cal = Calendar.getInstance();
-        //cal.set(Calendar.HOUR_OF_DAY, 20);
+        //cal.set(Calendar.HOUR_OF_DAY, 23);
         todaysDate = sdf.format(cal.getTime());
 
         prepareData();

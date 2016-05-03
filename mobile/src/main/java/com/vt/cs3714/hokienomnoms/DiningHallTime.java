@@ -53,6 +53,13 @@ public class DiningHallTime {
                     t[i][0] += 12;
                 }
 
+                if ((timeSmeridiem[1].compareTo("am") == 0 ||
+                        timeSmeridiem[1].compareTo("am") == 0)
+                        && t[i][0] == 12)
+                {
+                    t[i][0] -= 12;
+                }
+
                 if(i == 0)
                 {
                     open.set(Calendar.HOUR_OF_DAY, t[0][0]);
