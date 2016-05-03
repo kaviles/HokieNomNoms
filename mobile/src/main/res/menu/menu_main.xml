@@ -7,12 +7,4 @@
         android:icon="@drawable/ic_action_calendar_month"
         android:title="Calendar"
         app:showAsAction="ifRoom"/>
-
-    <!-- Settings, should always be in the overflow -->
-    <item android:id="@+id/action_notifications"
-        android:icon="@drawable/ic_action_bell"
-        android:title="Notifications"
-        app:showAsAction="ifRoom"/>
-
-
 </menu>
